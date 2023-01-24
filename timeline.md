@@ -1,0 +1,32 @@
+# Planning
+
+- web
+  - HTTP
+  - devtools
+
+- js
+  - event loop
+  - callbacks
+  - `Promise`
+  - `async`/`await`
+  - `typeof`
+- ts
+  - `tsc`
+  - `tsconfig.json`
+  - `type`
+  - `interface`
+  - `class`
+  - `|`
+  - `&`
+  - `extends`
+  - `!` 
+  - `?`
+  - variadics
+  - `void`
+  - `any`
+  - `unknown`
+  - `never`
+  - mapped types
+  - conditional types
+  - tuples
+  - `readonly`
