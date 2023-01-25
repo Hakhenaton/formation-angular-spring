@@ -1,0 +1,23 @@
+{
+  "name": "formation-angular-spring",
+  "version": "1.0.0",
+  "description": "Application réalisée dans le cadre d'une formation Angular/Spring.",
+  "main": "playground.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hakhenaton/formation-angular-spring.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Hakhenaton/formation-angular-spring/issues"
+  },
+  "homepage": "https://github.com/Hakhenaton/formation-angular-spring#readme",
+  "devDependencies": {
+    "typescript": "^4.9.4"
+  }
+}
