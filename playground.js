@@ -1,6 +1,6 @@
 let i = 0
 
-// callback hell
+// callbacks (niveau 1)
 setTimeout(() => {
     i++
     setTimeout(() => {
@@ -17,6 +17,7 @@ for (let y = 0; y < 1000000000; y++){
 
 console.log(i)
 
+// Les Promises (niveau 2)
 const promise = fetch('https://google.com')
 
 promise
@@ -33,6 +34,7 @@ promise
     console.error(err)
 })
 
+// async / await (niveau 3)
 async function myAsyncTasks(){
 
     try {

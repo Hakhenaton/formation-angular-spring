@@ -1,5 +1,7 @@
 # Planning
 
+Day 1:
+
 - web
   - HTTP
   - devtools
@@ -15,6 +17,9 @@
   - `tsconfig.json`
   - `type`
   - `interface`
+
+Day 2:
+
   - `class`
   - `|`
   - `&`
@@ -30,3 +35,13 @@
   - conditional types
   - tuples
   - `readonly`
+
+- java
+  - `class`
+  - constructor
+  - visibility
+  - `abstract`
+  - `interface`
+  - generics
+  - polymorphism
+  - casting
