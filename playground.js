@@ -65,7 +65,5 @@ variable = undefined // undefined
 variable = {} // object
 variable = false // boolean
 
-console.log(typeof typeof variable)
-
-instanceof
+console.log(typeof typeof variable) // 'string'
 
