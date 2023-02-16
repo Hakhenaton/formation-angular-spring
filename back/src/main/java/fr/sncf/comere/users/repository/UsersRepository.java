@@ -1,11 +1,10 @@
 package fr.sncf.comere.users.repository;
 
+import java.util.Map;
 import java.util.UUID;
 
-import org.apache.catalina.realm.UserDatabaseRealm;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Component;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import fr.sncf.comere.users.models.User;
@@ -14,9 +13,9 @@ import lombok.val;
 
 @Repository
 @RequiredArgsConstructor
-public class UserRepository {
+public class UsersRepository {
     
-    private final JdbcTemplate jdbcTemplate;
+    private final NamedParameterJdbcTemplate jdbcTemplate;
 
     /**
      * Faire persister un utilisateur en base de données
@@ -33,20 +32,22 @@ public class UserRepository {
         // On préferera utiliser des clés nommées.
         val insertQuery = "INSERT INTO \"users\" " + 
             " (\"id\", \"first_name\", \"last_name\", \"email\", \"role\" \"date_of_birth\") " + 
-            " VALUES (?, ?, ?, ?, ?, ?)";
+            " VALUES (:id, :firstName, :lastName, :email, :role, :dateOfBirth)";
 
         val updated = this.jdbcTemplate.update(
             insertQuery, 
-            id,
-            user.getFirstName(), 
-            user.getLastName(), 
-            user.getEmail(), 
-            user.getRole(), 
-            user.getDateOfBirth()
+            Map.of(
+                "id", id,
+                "firstName", user.getFirstName(),
+                "lastName", user.getLastName(),
+                "email", user.getEmail(),
+                "role", user.getRole().serialize(),
+                "dateOfBirth", user.getDateOfBirth()
+            )
         );
 
         if (updated != 1){
-            // cas d'erreur qu'on va probablement devoir gérer
+            throw new IllegalStateException(String.format("single insert query returned %d", updated));
         }
 
         user.setId(id);
