@@ -31,7 +31,7 @@ public class UsersRepository {
         // En effet, il peut être pénible de devoir observer à quel index on se situe dans la liste de paramètres.
         // On préferera utiliser des clés nommées.
         val insertQuery = "INSERT INTO \"users\" " + 
-            " (\"id\", \"first_name\", \"last_name\", \"email\", \"role\" \"date_of_birth\") " + 
+            " (\"id\", \"first_name\", \"last_name\", \"email\", \"role\", \"date_of_birth\") " + 
             " VALUES (:id, :firstName, :lastName, :email, :role, :dateOfBirth)";
 
         val updated = this.jdbcTemplate.update(
