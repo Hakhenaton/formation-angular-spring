@@ -4,12 +4,13 @@ import java.util.Date;
 
 import org.springframework.stereotype.Service;
 
+import fr.sncf.comere.users.exceptions.EmailExistsException;
 import fr.sncf.comere.users.exceptions.InvalidDateOfBirthException;
 import fr.sncf.comere.users.models.CreateUserParameters;
 import fr.sncf.comere.users.models.User;
 import fr.sncf.comere.users.repository.UsersRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.val;
+
 
 @Service
 @RequiredArgsConstructor
@@ -24,7 +25,11 @@ public class CreateUserUseCase {
             throw new InvalidDateOfBirthException(parameters.getDateOfBirth());
         }
 
-        val user = User.builder()
+        if (this.usersRepository.findByEmail(parameters.getEmail()).isPresent()){
+            throw new EmailExistsException(parameters.getEmail());
+        }
+
+        final var user = User.builder()
             .email(parameters.getEmail())
             .firstName(parameters.getFirstName())
             .lastName(parameters.getLastName())

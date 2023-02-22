@@ -9,7 +9,7 @@ public class UserResponseMapper {
 
     public UserResponse map(User user){
         return UserResponse.builder()
-            .id(user.getId().get())
+            .id(user.getId())
             .email(user.getEmail())
             .lastName(user.getLastName())
             .firstName(user.getFirstName())

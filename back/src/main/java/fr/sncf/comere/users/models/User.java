@@ -2,7 +2,6 @@ package fr.sncf.comere.users.models;
 
 import java.util.Date;
 import java.util.UUID;
-import java.util.Optional;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -31,7 +30,7 @@ public class User {
     @NonNull
     private final UserRole role;
 
-    public Optional<UUID> getId(){
-        return Optional.ofNullable(this.id);
+    public UUID getId(){
+        return this.id;
     }
 }

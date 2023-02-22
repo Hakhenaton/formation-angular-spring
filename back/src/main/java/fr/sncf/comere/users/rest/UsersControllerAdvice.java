@@ -2,21 +2,29 @@ package fr.sncf.comere.users.rest;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import fr.sncf.comere.common.rest.ErrorResponse;
+import fr.sncf.comere.common.rest.RestExceptionHandler;
+import fr.sncf.comere.users.exceptions.EmailExistsException;
 import fr.sncf.comere.users.exceptions.InvalidDateOfBirthException;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 
-@ControllerAdvice
+@RestControllerAdvice
 @RequiredArgsConstructor
 public class UsersControllerAdvice {
+
+    private final RestExceptionHandler handler;
     
     @ExceptionHandler({ InvalidDateOfBirthException.class })
-    public String handleInvalidDateOfBirth(HttpServletResponse response){
-        response.setStatus(HttpStatus.BAD_REQUEST.value());
-        return "date invalide !";
+    public ResponseEntity<ErrorResponse> handleInvalidDateOfBirth(InvalidDateOfBirthException ex){
+        return this.handler.createResponseEntity(ex, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler({ EmailExistsException.class })
+    public ResponseEntity<ErrorResponse> handleExistingEmail(EmailExistsException ex){
+        return this.handler.createResponseEntity(ex, HttpStatus.CONFLICT);
     }
     
 }
