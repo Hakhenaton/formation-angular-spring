@@ -8,12 +8,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.sncf.comere.users.models.CreateUserParameters;
-import fr.sncf.comere.users.models.UserRole;
 import fr.sncf.comere.users.rest.requests.CreateUserRequest;
 import fr.sncf.comere.users.rest.responses.UserResponse;
 import fr.sncf.comere.users.rest.responses.UserResponseMapper;
 import fr.sncf.comere.users.usecases.CreateUserUseCase;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 
