@@ -25,7 +25,7 @@ public class UserResponse {
     @Getter(AccessLevel.NONE)
     private final UserRole role;
 
-    public String role(){
+    public String getRole(){
         return this.role.serialize();
     }
 }
