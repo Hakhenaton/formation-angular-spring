@@ -2,7 +2,6 @@ package fr.sncf.comere.users.models;
 
 import java.util.Arrays;
 
-import fr.sncf.comere.common.models.StringConvertible;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor

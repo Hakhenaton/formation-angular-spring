@@ -3,8 +3,6 @@ package fr.sncf.comere.users.rest.responses;
 import java.util.Date;
 import java.util.UUID;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import fr.sncf.comere.users.models.UserRole;
 import lombok.AccessLevel;
 import lombok.Builder;

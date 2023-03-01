@@ -6,7 +6,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -16,7 +15,7 @@ import lombok.RequiredArgsConstructor;
 
 
 @Repository
-@RequiredArgsConstructor
+@RequiredArgsConstructor()
 public class UsersRepository {
     
     private final NamedParameterJdbcTemplate jdbcTemplate;
