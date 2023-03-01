@@ -52,19 +52,13 @@ public class UsersController {
     }
 
     @GetMapping("/{id}")
-    public UserResponse findById(@PathVariable("id") UUID id, HttpServletRequest request){
-
-        final var session = request.getSession();
-        System.out.println(session.getAttribute("bonjour"));
+    public UserResponse findById(@PathVariable("id") UUID id){
 
         return this.userResponseMapper.map(this.readUserUseCase.read(id));
     }
 
     @GetMapping
     public List<UserResponse> findAll(HttpServletRequest request){
-
-        final var session = request.getSession();
-        session.setAttribute("bonjour", "au revoir");
 
         return this.findAllUsersUseCase.read()
             .stream()
