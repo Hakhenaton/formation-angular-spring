@@ -1,5 +1,6 @@
 package fr.sncf.comere.users.models;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
 
@@ -10,7 +11,9 @@ import lombok.Setter;
 
 @Builder
 @Getter
-public class User {
+public class User implements Serializable {
+
+    private static final long serialVersionUID = -6195955904636828447L;
 
     @Setter
     private UUID id;
@@ -29,6 +32,9 @@ public class User {
 
     @NonNull
     private final UserRole role;
+
+    @NonNull
+    private final String password;
 
     public UUID getId(){
         return this.id;

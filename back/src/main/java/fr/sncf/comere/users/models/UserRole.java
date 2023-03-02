@@ -1,14 +1,19 @@
 package fr.sncf.comere.users.models;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
-import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
 public enum UserRole {
     USER("user"),
     MODERATOR("moderator"),
     ADMINISTRATOR("administrator");
+
+    private UserRole(String stringValue){
+        this.stringValue = stringValue;
+    }
+
+    private static final long serialVersionUID = 0L;
 
     private final String stringValue;
 

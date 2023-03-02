@@ -18,4 +18,6 @@ public class CreateUserParameters {
     private final String email;
 
     private final UserRole role;
+
+    private final String password;
 }

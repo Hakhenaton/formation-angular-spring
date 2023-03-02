@@ -8,6 +8,9 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 
+/**
+ * Objet représentant une corps de réponse HTTP contenant un utilisateur.
+ */
 @Builder
 @Getter
 public class UserResponse {

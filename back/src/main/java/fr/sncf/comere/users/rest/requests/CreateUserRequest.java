@@ -17,7 +17,7 @@ public class CreateUserRequest {
     @NotBlank
     private String firstName;
 
-    @NotBlank
+    @NotBlank   
     private String lastName;
    
     @NotNull
@@ -25,6 +25,9 @@ public class CreateUserRequest {
 
     @Email
     private String email;
+
+    @NotBlank
+    private String password;
 
     @NotNull
     @Setter(AccessLevel.NONE)

@@ -6,7 +6,8 @@ CREATE TABLE IF NOT EXISTS users (
     first_name VARCHAR(255) NOT NULL,
     last_name VARCHAR(255) NOT NULL,
     role VARCHAR(255) NOT NULL,
-    date_of_birth TIMESTAMP NOT NULL
+    date_of_birth TIMESTAMP NOT NULL,
+	password VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS SPRING_SESSION  (

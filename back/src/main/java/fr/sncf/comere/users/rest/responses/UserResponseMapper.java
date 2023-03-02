@@ -4,6 +4,9 @@ import org.springframework.stereotype.Component;
 
 import fr.sncf.comere.users.models.User;
 
+/**
+ * Classe injectable permettant de mapper un {@link User} vers un objet {@link UserResponse}.
+ */
 @Component
 public class UserResponseMapper {
 

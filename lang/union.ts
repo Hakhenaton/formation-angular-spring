@@ -37,3 +37,14 @@ useUnionType({ type: 2, bar: true })
 // useUnionType({ type: 1, bar: true }) // ne compile pas car `bar` correspond à `SecondType`, pas `FirstType`
 // useUnionType({ type: 2 }) // ne compile pas car `bar` est absent.
 
+
+
+enum UserRole {
+    User,
+    Moderator,
+    Administrator
+}
+
+for (const role of Object.values(UserRole)){
+    
+}

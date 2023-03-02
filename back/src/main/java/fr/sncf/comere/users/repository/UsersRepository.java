@@ -13,7 +13,9 @@ import fr.sncf.comere.common.repository.RepositoryHelpers;
 import fr.sncf.comere.users.models.User;
 import lombok.RequiredArgsConstructor;
 
-
+/**
+ * Classe injectable représentant un accès à une couche de persistence pour les objets métier de type {@link User}.
+ */
 @Repository
 @RequiredArgsConstructor()
 public class UsersRepository {
@@ -36,8 +38,8 @@ public class UsersRepository {
         // En effet, il peut être pénible de devoir observer à quel index on se situe dans la liste de paramètres.
         // On préferera utiliser des clés nommées.
         final var insertQuery = "INSERT INTO \"users\" " + 
-            " (\"id\", \"first_name\", \"last_name\", \"email\", \"role\", \"date_of_birth\") " + 
-            " VALUES (:id, :firstName, :lastName, :email, :role, :dateOfBirth)";
+            " (\"id\", \"first_name\", \"last_name\", \"email\", \"role\", \"date_of_birth\", \"password\") " + 
+            " VALUES (:id, :firstName, :lastName, :email, :role, :dateOfBirth, :password)";
 
         final var updated = this.jdbcTemplate.update(
             insertQuery, 
@@ -47,7 +49,8 @@ public class UsersRepository {
                 "lastName", user.getLastName(),
                 "email", user.getEmail(),
                 "role", user.getRole().serialize(),
-                "dateOfBirth", user.getDateOfBirth()
+                "dateOfBirth", user.getDateOfBirth(),
+                "password", user.getPassword()
             )
         );
 
@@ -58,6 +61,11 @@ public class UsersRepository {
         user.setId(id);
     }
 
+    /**
+     * Chercher un utilisateur via son email.
+     * @param email L'email sur lequel effectuer la recherche.
+     * @return Un {@link Optional} contenant l'utilisateur si trouvé, sinon un {@link Optional} vide.
+     */
     public Optional<User> findByEmail(String email){
 
         final var selectQuery = "SELECT * FROM \"users\" AS \"user\" WHERE \"user\".\"email\" = :email";
@@ -69,6 +77,11 @@ public class UsersRepository {
         ));
     }
 
+    /**
+     * Chercher un utilisateur via son identifiant unique.
+     * @param email L'id sur lequel effectuer la recherche.
+     * @return Un {@link Optional} contenant l'utilisateur si trouvé, sinon un {@link Optional} vide.
+     */
     public Optional<User> findById(UUID id){
         final var selectQuery = "SELECT * FROM \"users\" AS \"user\" WHERE \"user\".\"id\" = :id";
 
@@ -79,6 +92,10 @@ public class UsersRepository {
         ));
     }
 
+    /**
+     * Trouver tous les utilisateurs dans l'application.
+     * @return Tous les utilisateurs {@link User} présents en base, contenus dans une {@link List}.
+     */
     public List<User> findAll(){
 
         final var selectQuery = "SELECT * FROM \"users\"";
@@ -90,6 +107,10 @@ public class UsersRepository {
         );
     }
 
+    /**
+     * Supprimer un utilisateur dans la couche de persistence.
+     * @param user L'utilisateur à supprimer.
+     */
     public void delete(User user){
 
         final var deleteQuery = "DELETE FROM \"users\" AS \"user\" WHERE \"user\".\"id\" = :id";

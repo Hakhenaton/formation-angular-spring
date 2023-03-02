@@ -11,6 +11,10 @@ import org.springframework.stereotype.Component;
 import fr.sncf.comere.users.models.User;
 import fr.sncf.comere.users.models.UserRole;
 
+/**
+ * Un {@link RowMapper} qui permet de mapper les résultats d'une requête SQL de lecture vers
+ * des objets {@link User} de notre domaine métier.
+ */
 @Component
 public class UserRowMapper implements RowMapper<User> {
 
@@ -24,6 +28,7 @@ public class UserRowMapper implements RowMapper<User> {
             .dateOfBirth(rs.getTimestamp("date_of_birth"))
             .email(rs.getString("email"))
             .role(UserRole.deserialize(rs.getString("role")))
+            .password(rs.getString("password"))
             .build();
     }
     
