@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Repository;
 
 import fr.sncf.comere.common.repository.RepositoryHelpers;
@@ -29,6 +30,7 @@ public class UsersRepository {
      * Cette méthode va aussi ajouter un identifiant unique via {@link User#setId(UUID)}
      * @param user
      */
+    @PreAuthorize("@usersGuard.canCreate(#user, principal)")
     public void create(User user){
 
         final var id = UUID.randomUUID();

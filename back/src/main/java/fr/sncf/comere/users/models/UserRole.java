@@ -1,6 +1,5 @@
 package fr.sncf.comere.users.models;
 
-import java.io.Serializable;
 import java.util.Arrays;
 
 

@@ -21,7 +21,6 @@ import fr.sncf.comere.users.usecases.CreateUserUseCase;
 import fr.sncf.comere.users.usecases.DeleteUserUseCase;
 import fr.sncf.comere.users.usecases.FindAllUsersUseCase;
 import fr.sncf.comere.users.usecases.ReadUserUseCase;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -71,7 +70,6 @@ public class UsersRestController {
      */
     @GetMapping("/{id}")
     public UserResponse findById(@PathVariable("id") UUID id){
-
         return this.userResponseMapper.map(this.readUserUseCase.read(id));
     }
 

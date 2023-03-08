@@ -11,6 +11,7 @@ import lombok.experimental.UtilityClass;
 public class RepositoryHelpers {
     
     public static <T> Optional<T> queryAsOptional(Supplier<T> resultSupplier){
+
         try {
             final var value = resultSupplier.get();
             return Optional.of(value);

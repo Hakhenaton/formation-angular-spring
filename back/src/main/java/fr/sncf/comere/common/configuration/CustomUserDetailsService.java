@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import fr.sncf.comere.users.models.User;
 import fr.sncf.comere.users.repository.UsersRepository;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @Component
@@ -29,6 +30,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     @RequiredArgsConstructor
     public static class CustomUserDetails implements UserDetails {
 
+        @Getter
         private final User user;
 
         @Override
@@ -38,7 +40,6 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         @Override
         public String getPassword() {
-
             return this.user.getPassword();
         }
 
