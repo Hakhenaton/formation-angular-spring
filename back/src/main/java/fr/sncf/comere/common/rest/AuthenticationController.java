@@ -24,8 +24,8 @@ public class AuthenticationController {
     private final UserResponseMapper userResponseMapper;
     
     /**
-     * Récupérer le *nom* de l'utilisateur authentifié.
-     * @return Une chaîne de caractères qui représente le nom de l'utilisateure authentifié.
+     * Récupérer l'utilisateur authentifié
+     * @return 200 (OK) avec un {@link UserResponse} si authentifié, 204 (No Content) sinon.
      */
     @RequestMapping(method = { RequestMethod.GET, RequestMethod.POST })
     public ResponseEntity<UserResponse> auth(){
