@@ -1,40 +1,75 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpStatusCode } from '@angular/common/http'
-import { BehaviorSubject, Observable } from "rxjs";
+import { BehaviorSubject, map, Observable, tap } from "rxjs";
 import { User } from "src/app/users/models/User";
+import { UserResponseMapper } from "src/app/users/services/user-response.mapper"
+import { UserResponse } from "src/app/users/services/user-response"
 
-type AuthenticationState = User|null
+export type NonAuthenticatedState = {
+    type: 'anonymous'
+}
+
+export type AuthenticatedState = {
+    type: 'authenticated',
+    user: User
+}
+
+export type AuthenticationState = AuthenticatedState|NonAuthenticatedState
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
 
-    private readonly authUrl = 'http://127.0.0.1:8080/auth'
+    private readonly authUrl = 'http://localhost:8080/auth'
 
-    readonly authState$ = new BehaviorSubject<AuthenticationState>(null)
+    get authState$(): Observable<AuthenticationState> {
+        return this._authState$
+    }
 
-    constructor(private readonly http: HttpClient){}
+    private readonly _authState$ = new BehaviorSubject<AuthenticationState>({ type: 'anonymous' })
+
+    constructor(private readonly http: HttpClient, private readonly userResponseMapper: UserResponseMapper){}
     
-    loadState(): void {
-        this.http.get<User>(this.authUrl, {
-            observe: 'response'
-        })
-            .subscribe({
-                next: response => {
+    loadState(): Observable<void> {
+        return this.http.get<UserResponse>(this.authUrl, {
+            observe: 'response',
+        }).pipe(
+            tap(response => {
+                switch (response.status){
+                    case HttpStatusCode.NoContent:
+                        this._authState$.next({ type: 'anonymous' })
+                        break
+                    case HttpStatusCode.Ok:
+                        const user = this.userResponseMapper.map(response.body!)
+                        this._authState$.next({ type: 'authenticated', user })
+                        break
+                    default:
+                        throw Error(`fetch auth state failed (${response.status})`)
+                }
+            }),
+            map(_response => undefined)
+        )
+    }
 
-                    switch (response.status){
-                        case HttpStatusCode.NoContent:
-                            this.authState$.next(null)
-                            break
-                        case HttpStatusCode.Ok:
-                            const user = new User(response.body!)
-                            this.authState$.next(user)
-                            break
-                        default:
-
-                    }
-
-                },
-                error: err => console.error(err)
-            })
+    authenticate(email: string, password: string): Observable<void> {
+        return this.http.post<UserResponse>(this.authUrl, undefined, {
+            observe: 'response',
+            headers: {
+                'Authorization': `Basic ${btoa(email + ':' + password)}`
+            }
+        }).pipe(
+            tap(response => {
+                switch (response.status){
+                    case HttpStatusCode.Unauthorized:
+                        throw Error('bad credentials')
+                    case HttpStatusCode.Ok:
+                        const user = this.userResponseMapper.map(response.body!)
+                        this._authState$.next({ type: 'authenticated', user })
+                        break
+                    default:
+                        throw Error(`authentication failed (${response.status})`)
+                }
+            }),
+            map(_response => undefined)
+        )
     }
 }

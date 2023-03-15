@@ -18,6 +18,10 @@ export class User {
     dateOfBirth: Date
     email: string
 
+    get fullName(): string {
+        return `${this.firstName} ${this.lastName.toUpperCase()}`
+    }
+
     constructor(props: UserProps){
         this.id = props.id
         this.lastName = props.lastName
