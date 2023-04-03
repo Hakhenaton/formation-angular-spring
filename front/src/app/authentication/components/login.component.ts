@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core"
 import { FormBuilder, FormControl, FormGroup } from "@angular/forms"
+import { Router } from "@angular/router"
 import { AuthenticationService } from "../services/authentication.service"
 
 @Component({
@@ -22,7 +23,11 @@ export class LoginComponent implements OnInit {
 
     error?: Error
 
-    constructor(private readonly authenticationService: AuthenticationService, private readonly formBuilder: FormBuilder){}
+    constructor(
+        private readonly authenticationService: AuthenticationService, 
+        private readonly formBuilder: FormBuilder,
+        private readonly router: Router
+    ){}
     
     
     ngOnInit(): void {
@@ -37,7 +42,7 @@ export class LoginComponent implements OnInit {
         this.authenticationService.authenticate(email, password)
             .subscribe({
                 next: () => {
-                    console.log('ok')
+                    this.router.navigateByUrl('/')
                 },
                 error: err => {
                     this.error = err

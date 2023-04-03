@@ -1,7 +1,7 @@
 import { UserRole } from "./UserRole"
 
 export type UserProps = {
-    id?: string
+    id: string
     lastName: string
     firstName: string
     role: UserRole
@@ -11,7 +11,7 @@ export type UserProps = {
 
 export class User {
 
-    id?: string
+    id: string
     lastName: string
     firstName: string
     role: UserRole

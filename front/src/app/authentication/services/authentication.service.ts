@@ -4,6 +4,7 @@ import { BehaviorSubject, map, Observable, tap } from "rxjs";
 import { User } from "src/app/users/models/User";
 import { UserResponseMapper } from "src/app/users/services/user-response.mapper"
 import { UserResponse } from "src/app/users/services/user-response"
+import { API_ORIGIN } from "src/app/apps.constants"
 
 export type NonAuthenticatedState = {
     type: 'anonymous'
@@ -19,7 +20,7 @@ export type AuthenticationState = AuthenticatedState|NonAuthenticatedState
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
 
-    private readonly authUrl = 'http://localhost:8080/auth'
+    private readonly authUrl = `${API_ORIGIN}/auth`
 
     get authState$(): Observable<AuthenticationState> {
         return this._authState$
@@ -51,11 +52,8 @@ export class AuthenticationService {
     }
 
     authenticate(email: string, password: string): Observable<void> {
-        return this.http.post<UserResponse>(this.authUrl, undefined, {
-            observe: 'response',
-            headers: {
-                'Authorization': `Basic ${btoa(email + ':' + password)}`
-            }
+        return this.http.post<UserResponse>(this.authUrl, { email, password }, {
+            observe: 'response'
         }).pipe(
             tap(response => {
                 switch (response.status){

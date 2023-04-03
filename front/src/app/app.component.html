@@ -1,17 +1,22 @@
 <ng-container *ngIf="auth$ | async; let auth">
-  <header>
-    <nav>
+  <header role="banner">
+    <nav role="navigation">
       <ul>
         <li *ngIf="auth.type === 'anonymous'">
           <a routerLink="/login">Se connecter</a>
         </li>
-        <li *ngIf="auth.type === 'authenticated'">
-          <span>{{ auth.user.fullName  }}</span>
-        </li>
+        <ng-container *ngIf="auth.type === 'authenticated'">
+          <li>
+            <span>{{ auth.user.fullName  }}</span>
+          </li>
+          <li>
+            <a routerLink="/annonces/create">Créer une annonce</a>
+          </li>
+        </ng-container>
       </ul>
     </nav>
   </header>
-  <main>
+  <main role="main">
     <router-outlet></router-outlet>  
   </main>
 </ng-container>
